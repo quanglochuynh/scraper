@@ -2,7 +2,7 @@ import fs from "fs";
 import cheerio from "cheerio";
 import axios from "axios";
 
-const searchTerm = "vệ sinh máy lạnh tphcm";
+const searchTerm = "postgresql cloud";
 
 axios.defaults.baseURL = "https://google.com";
 axios
@@ -28,10 +28,12 @@ axios
       decodeEntities: false,
     });
     console.log($("title").text());
-    console.log(
-      $("div[innerHTML='Sponsored'], div[innerHTML='Được tài trợ']") +
-        "Sponsored"
-    );
+    $("span").each((i, el) => {
+      if ($(el).text().includes("Được tài trợ")) {
+        console.log($(el).text());
+      }
+    });
+
     console.log("Result stat: " + $("#result-stats").text());
     $(".KP7LCb").remove();
     $("#st-card").remove();
