@@ -1,0 +1,82 @@
+{
+    "cells": [
+        {
+            "language": "javascript",
+            "source": [
+                "import fs from \"fs\";\nimport cheerio from \"cheerio\";\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const searchTerm = \"bom gas máy lạnh tphcm\";\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import axios from \"axios\";\n\naxios.defaults.baseURL = \"https://google.com\";\naxios.defaults.headers.common[\"User-Agent\"] =\n  \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 OPR/105.0.0.0\";\n\nconst res = await axios.get(\"/search\", {\n  params: {\n    q: searchTerm,\n    ie: \"UTF-8\",\n    oe: \"UTF-8\",\n    client: \"opera\",\n    sourceid: \"opera\",\n    lr: \"lang_en\",\n    ip: 1,\n  },\n});\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const $ = cheerio.load(res.data, {\n  lowerCaseTags: true,\n  decodeEntities: false,\n});\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(\n  $(\"span[innerHTML='Sponsored'], span[innerHTML='Được tài trợ']\").length +\n    \" Sponsored\"\n);\nconsole.log(\"Result stat: \" + $(\"#result-stats\").text());\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "0 Sponsored",
+                                "Result stat: Khoảng 45.500 kết quả (0,36 giây) ",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "$(\"h3\").each((i, el) => {\n  console.log($(el).text());\n});\n\nconsole.log($(\"h3\").length - 2 + \" results\");\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Gas lạnh R32",
+                                "Công Ty Điện Lạnh Đình Nhật - Dân Dụng và Công Nghiệp ...",
+                                "ĐIỆN LẠNH MINH KHẢI",
+                                "Home - Điện lạnh blog",
+                                "SCMAYXANH",
+                                "8EN: KÊNH THƯƠNG MẠI ĐIỆN TỬ KỸ THUẬT",
+                                "Dịch vụ vệ sinh máy lạnh tại nhà giá rẻ - uy tín",
+                                "Cách nạp gas 410A cho máy điều hòa Inverter an toàn",
+                                "✓ Gas South | Ho Chi Minh City",
+                                "Kết quả khác",
+                                "Thử lại",
+                                "9 results",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
