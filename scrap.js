@@ -2,7 +2,7 @@ import fs from "fs";
 import cheerio from "cheerio";
 import axios from "axios";
 
-const searchTerm = "postgresql cloud";
+const searchTerm = "mac mini m1";
 
 axios.defaults.baseURL = "https://google.com";
 axios
